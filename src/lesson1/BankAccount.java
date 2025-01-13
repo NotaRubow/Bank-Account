@@ -1,7 +1,5 @@
 package lesson1;
 import java.util.Random;
-import java.lang.invoke.LambdaMetafactory;
-import java.util.Scanner;
 
 //operations: deposit money, withdraw money, get current balance
 //instance variables
@@ -12,7 +10,7 @@ public class BankAccount {
 
     }
     Random ran = new Random();
-    private double accountNumber;
+    private int accountNumber;
     private double balance;
     private double interestRate;
     private String bank;
@@ -26,10 +24,11 @@ public class BankAccount {
         balance = initialBalance;
     }
     public BankAccount(double initialBalance, String name){
+        Random random = new Random();
         balance= initialBalance;
         owner = name;
-        int random = ran.nextInt(0, 99999999);
-        accountNumber = random;
+        accountNumber = 10000000 + random.nextInt(90000000);
+        interestRate = 0.0;
     }
     /**
      * Deposits a specified amount of money into the
@@ -53,8 +52,22 @@ public class BankAccount {
         return owner;
     }
 
-    public double getAccountNumber() {
+
+    public int getAccountNumber() {
         return accountNumber;
+    }
+    public void changeOwner(String newOwner){
+        owner = newOwner;
+    }
+    public void setInterestRate(double rate){
+        interestRate = rate;
+    }
+    public void addInterest(){
+        if (interestRate <= 0){
+            double interest = balance * (interestRate/100);
+            balance += interest;
+        }
+
     }
 
     @Override
